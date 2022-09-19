@@ -1,4 +1,4 @@
-package com.kamil.bookslibrary;
+package com.kamil.bookslibrary.model;
 
 import lombok.*;
 import org.hibernate.Hibernate;

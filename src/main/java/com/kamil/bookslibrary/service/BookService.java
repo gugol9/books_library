@@ -1,5 +1,7 @@
-package com.kamil.bookslibrary;
+package com.kamil.bookslibrary.service;
 
+import com.kamil.bookslibrary.model.Book;
+import com.kamil.bookslibrary.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,9 +25,12 @@ public class BookService {
         return bookRepository.findById(id).orElseThrow();//metoda findById zwraca OPTIONALA i dodac trzeba orElseThrow() zwraca blad jak nie znajdzie
     }
 
-    public Book registerBook(Book book){
+    public Book addBook(Book book){
     return bookRepository.save(book);
     }
 
 
+    public Book editBook(Book book) {
+        return bookRepository.save(book);
+    }
 }
