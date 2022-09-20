@@ -10,4 +10,6 @@ public class BookDto {
     private String author;
     private int pages;
     private int rating;
+    private boolean isavalible;
+
 }

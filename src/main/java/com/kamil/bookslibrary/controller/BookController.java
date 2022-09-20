@@ -37,7 +37,8 @@ public class BookController {
                 bookDto.getName(),
                 bookDto.getAuthor(),
                 bookDto.getPages(),
-                bookDto.getRating()
+                bookDto.getRating(),
+                bookDto.isIsavalible()
         ));
     }
     //Stworzona klasa BookDto bez pola ID,  żeby było wiadomo które id ma w parametrze wziążć pod uwage, bo klasa Book to encja
@@ -48,7 +49,8 @@ public class BookController {
                 bookDto.getName(),
                 bookDto.getAuthor(),
                 bookDto.getPages(),
-                bookDto.getRating()
+                bookDto.getRating(),
+                bookDto.isIsavalible()
         ));
 
     }

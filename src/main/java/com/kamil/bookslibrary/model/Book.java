@@ -14,7 +14,6 @@ import java.util.Objects;
 @Setter
 @ToString
 
-
 public class Book {
 
     @Id
@@ -25,18 +24,8 @@ public class Book {
     private String author;
     private int pages;
     private int rating;
+    private boolean is_avalible;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Book book = (Book) o;
-        return id != null && Objects.equals(id, book.id);
-    }
 
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
-    }
 
 }
