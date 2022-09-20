@@ -1,4 +1,7 @@
-package com.kamil.bookslibrary.model;
+package com.kamil.bookslibrary.controller;
+import com.kamil.bookslibrary.model.Book;
+import com.kamil.bookslibrary.model.BookDto;
+import com.kamil.bookslibrary.service.BookService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

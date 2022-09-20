@@ -1,7 +1,7 @@
-package com.kamil.bookslibrary.model;
+package com.kamil.bookslibrary.service;
 
 import com.kamil.bookslibrary.model.Book;
-import com.kamil.bookslibrary.model.BookRepository;
+import com.kamil.bookslibrary.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
