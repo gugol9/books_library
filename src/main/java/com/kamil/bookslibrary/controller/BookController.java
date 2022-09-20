@@ -60,4 +60,12 @@ public class BookController {
          bookService.deleteBook(id);
     }
 
+//zmienia status książki z niedostępnej na dostępną
+    @PutMapping("/{id}/activate")
+    public void activateBook(@PathVariable Long id, @RequestBody Book book){
+        bookService.activateBook(id);
+    }
+
+    
+
 }

@@ -38,4 +38,13 @@ public class BookService {
     public void deleteBook(Long id) {
         bookRepository.deleteById(id);
     }
+
+
+    public void activateBook(Long id) {
+        bookRepository.findById(id).map(book -> {
+    book.set_avalible(true);
+    return bookRepository.save(book);
+
+});
+    }
 }
