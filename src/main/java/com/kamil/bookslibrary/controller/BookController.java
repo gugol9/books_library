@@ -1,7 +1,4 @@
-package com.kamil.bookslibrary.controller;
-import com.kamil.bookslibrary.model.Book;
-import com.kamil.bookslibrary.model.BookDto;
-import com.kamil.bookslibrary.service.BookService;
+package com.kamil.bookslibrary.model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,18 +26,18 @@ public class BookController {
         return bookService.getBook(id);
     }
 
-    //Add book
+
     @PostMapping("")
     public Book addBook(@RequestBody BookDto bookDto){
         return bookService.addBook(new Book(
-                EMPTY_ID,
+                EMPTY_ID,   //stała = null
                 bookDto.getName(),
                 bookDto.getAuthor(),
                 bookDto.getPages(),
                 bookDto.getRating()
         ));
     }
-
+    //Stworzona klasa BookDto bez pola ID,  żeby było wiadomo które id ma w parametrze wziążć pod uwage, bo klasa Book to encja
     @PutMapping("/{id}") //dodaje mapping bo chce edytowac konkretną ksiąze po id
     public Book editBook(@PathVariable Long id, @RequestBody BookDto bookDto){
         return bookService.editBook(new Book(
@@ -51,6 +48,11 @@ public class BookController {
                 bookDto.getRating()
         ));
 
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteBook(@PathVariable Long id){
+         bookService.deleteBook(id);
     }
 
 }

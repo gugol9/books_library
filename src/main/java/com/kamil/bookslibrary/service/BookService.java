@@ -1,7 +1,7 @@
-package com.kamil.bookslibrary.service;
+package com.kamil.bookslibrary.model;
 
 import com.kamil.bookslibrary.model.Book;
-import com.kamil.bookslibrary.repository.BookRepository;
+import com.kamil.bookslibrary.model.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,5 +32,10 @@ public class BookService {
 
     public Book editBook(Book book) {
         return bookRepository.save(book);
+    }
+
+
+    public void deleteBook(Long id) {
+        bookRepository.deleteById(id);
     }
 }
