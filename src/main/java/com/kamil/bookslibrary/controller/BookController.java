@@ -54,18 +54,21 @@ public class BookController {
         ));
 
     }
-
+//usuwanie książki o podanym id
     @DeleteMapping("/{id}")
     public void deleteBook(@PathVariable Long id){
          bookService.deleteBook(id);
     }
 
-//zmienia status książki z niedostępnej na dostępną
+//zmienia status książki podanym id z niedostępnej na dostępną
     @PutMapping("/{id}/activate")
     public void activateBook(@PathVariable Long id, @RequestBody Book book){
         bookService.activateBook(id);
     }
-
-    
+//zmiana statusu książki o podanym id z dostępnej na niedostępną
+@PutMapping("/{id}/deactivate")
+    public void deactivateBook(@PathVariable Long id, @RequestBody Book book){
+        bookService.deactivateBook(id);
+}
 
 }

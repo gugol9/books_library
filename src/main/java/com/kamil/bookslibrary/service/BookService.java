@@ -44,7 +44,13 @@ public class BookService {
         bookRepository.findById(id).map(book -> {
     book.set_avalible(true);
     return bookRepository.save(book);
-
 });
+    }
+
+    public void deactivateBook(Long id) {
+        bookRepository.findById(id).map(book -> {
+            book.set_avalible(false);
+            return bookRepository.save(book);
+        });
     }
 }
