@@ -3,10 +3,12 @@ import com.kamil.bookslibrary.model.Book;
 import com.kamil.bookslibrary.model.BookDto;
 import com.kamil.bookslibrary.service.BookService;
 import org.springframework.hateoas.EntityModel;
-import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("/book")
@@ -29,11 +31,11 @@ public class BookController {
     @GetMapping("/{id}")
    public EntityModel<Book> getBook(@PathVariable Long id){                                                             //@PathVariable mapuje zmienna do parametru "{id}"
         return EntityModel.of(bookService.getBook(id),                                                                  //utworzone linki po wyświetleniu
-                WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(BookController.class).getBook(id)).withSelfRel(),
-                WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(BookController.class).getAll()).withRel("book"),
-                WebMvcLinkBuilder.linkTo(BookController.class).slash(id).slash("activate")                    //do metody void aktywacja dostępności ksiązki
+                linkTo(methodOn(BookController.class).getBook(id)).withSelfRel(),
+                linkTo(methodOn(BookController.class).getAll()).withRel("book"),
+                linkTo(BookController.class).slash(id).slash("activate")                    //do metody void aktywacja dostępności ksiązki
                         .withRel("activate"),
-                WebMvcLinkBuilder.linkTo(BookController.class).slash(id).slash("deactivate")
+                linkTo(BookController.class).slash(id).slash("deactivate")
                         .withRel("deactivate")
 
         );
@@ -41,8 +43,8 @@ public class BookController {
 
 
     @PostMapping("")
-    public Book addBook(@RequestBody BookDto bookDto){
-        return bookService.addBook(new Book(
+    public EntityModel<Book> addBook(@RequestBody BookDto bookDto){
+        Book book = bookService.addBook(new Book(
                 EMPTY_ID,   //stała = null
                 bookDto.getName(),
                 bookDto.getAuthor(),
@@ -50,6 +52,16 @@ public class BookController {
                 bookDto.getRating(),
                 bookDto.isIsavalible()
         ));
+
+
+        return EntityModel.of(book,                                                                  //utworzone linki po wyświetleniu
+                linkTo(methodOn(BookController.class).getAll()).withRel("book"),
+                linkTo(BookController.class).slash(book.getId()).slash("activate")                    //do metody void aktywacja dostępności ksiązki
+                        .withRel("activate"),
+                linkTo(BookController.class).slash(book.getId()).slash("deactivate")
+                        .withRel("deactivate")
+
+        );
     }
     //Stworzona klasa BookDto bez pola ID,  żeby było wiadomo które id ma w parametrze wziążć pod uwage, bo klasa Book to encja
     @PutMapping("/{id}") //dodaje mapping bo chce edytowac konkretną ksiąze po id
@@ -62,6 +74,7 @@ public class BookController {
                 bookDto.getRating(),
                 bookDto.isIsavalible()
         ));
+
 
     }
 //usuwanie książki o podanym id
