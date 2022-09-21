@@ -51,6 +51,8 @@ public class BookService {
         bookRepository.findById(id).map(book -> {
             book.set_avalible(false);
             return bookRepository.save(book);
+
         });
     }
 }
+

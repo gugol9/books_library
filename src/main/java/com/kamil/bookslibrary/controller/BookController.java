@@ -2,6 +2,8 @@ package com.kamil.bookslibrary.controller;
 import com.kamil.bookslibrary.model.Book;
 import com.kamil.bookslibrary.model.BookDto;
 import com.kamil.bookslibrary.service.BookService;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,8 +27,16 @@ public class BookController {
 
     //Zwraca książkę o podanym id
     @GetMapping("/{id}")
-   public Book getBook(@PathVariable Long id){ //@PathVariable mapuje zmienna do parametru "{id}"
-        return bookService.getBook(id);
+   public EntityModel<Book> getBook(@PathVariable Long id){                                                             //@PathVariable mapuje zmienna do parametru "{id}"
+        return EntityModel.of(bookService.getBook(id),                                                                  //utworzone linki po wyświetleniu
+                WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(BookController.class).getBook(id)).withSelfRel(),
+                WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(BookController.class).getAll()).withRel("book"),
+                WebMvcLinkBuilder.linkTo(BookController.class).slash(id).slash("activate")                    //do metody void aktywacja dostępności ksiązki
+                        .withRel("activate"),
+                WebMvcLinkBuilder.linkTo(BookController.class).slash(id).slash("deactivate")
+                        .withRel("deactivate")
+
+        );
     }
 
 
@@ -62,12 +72,12 @@ public class BookController {
 
 //zmienia status książki podanym id z niedostępnej na dostępną
     @PutMapping("/{id}/activate")
-    public void activateBook(@PathVariable Long id, @RequestBody Book book){
+    public void activateBook(@PathVariable Long id){
         bookService.activateBook(id);
     }
 //zmiana statusu książki o podanym id z dostępnej na niedostępną
 @PutMapping("/{id}/deactivate")
-    public void deactivateBook(@PathVariable Long id, @RequestBody Book book){
+    public void deactivateBook(@PathVariable Long id){
         bookService.deactivateBook(id);
 }
 
