@@ -24,7 +24,7 @@ public class Book {
     private String author;
     private int pages;
     private int rating;
-    private boolean is_avalible;
+    private boolean available;
 
 
 

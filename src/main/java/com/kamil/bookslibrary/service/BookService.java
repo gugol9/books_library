@@ -42,14 +42,14 @@ public class BookService {
 
     public void activateBook(Long id) {
         bookRepository.findById(id).map(book -> {
-    book.set_avalible(true);
+    book.setAvailable(true);
     return bookRepository.save(book);
 });
     }
 
     public void deactivateBook(Long id) {
         bookRepository.findById(id).map(book -> {
-            book.set_avalible(false);
+            book.setAvailable(false);
             return bookRepository.save(book);
 
         });

@@ -50,11 +50,12 @@ public class BookController {
                 bookDto.getAuthor(),
                 bookDto.getPages(),
                 bookDto.getRating(),
-                bookDto.isIsavalible()
+                bookDto.isAvailable()
         ));
 
 
         return EntityModel.of(book,                                                                  //utworzone linki po wyświetleniu
+                linkTo(methodOn(BookController.class).getBook(book.getId())).withSelfRel(),
                 linkTo(methodOn(BookController.class).getAll()).withRel("book"),
                 linkTo(BookController.class).slash(book.getId()).slash("activate")                    //do metody void aktywacja dostępności ksiązki
                         .withRel("activate"),
@@ -72,7 +73,7 @@ public class BookController {
                 bookDto.getAuthor(),
                 bookDto.getPages(),
                 bookDto.getRating(),
-                bookDto.isIsavalible()
+                bookDto.isAvailable()
         ));
 
 
@@ -83,11 +84,12 @@ public class BookController {
          bookService.deleteBook(id);
     }
 
-//zmienia status książki podanym id z niedostępnej na dostępną
+//zmienia status książki o podanym id z niedostępnej na dostępną
     @PutMapping("/{id}/activate")
     public void activateBook(@PathVariable Long id){
         bookService.activateBook(id);
     }
+
 //zmiana statusu książki o podanym id z dostępnej na niedostępną
 @PutMapping("/{id}/deactivate")
     public void deactivateBook(@PathVariable Long id){
