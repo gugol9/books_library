@@ -54,5 +54,10 @@ public class BookService {
 
         });
     }
+
+    public double getRating() {
+return  bookRepository.avg();
+
+    }
 }
 

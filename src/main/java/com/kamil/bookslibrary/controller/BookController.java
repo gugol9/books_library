@@ -97,4 +97,12 @@ public class BookController {
         bookService.deactivateBook(id);
 }
 
+@GetMapping("/rating")
+   public double getRating(){
+    return  bookService.getRating();
+
+
+
+}
+
 }
